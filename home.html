@@ -1,0 +1,158 @@
+<html>
+    <head>
+        <title>Location File.</title>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <style>
+        body {
+         background-image: url("locImage.jpg");
+         background-repeat: no-repeat;
+         background-size: 100%;
+         padding: 0;
+         margin: 0;
+        }
+        .form_box {
+            background-color:rgb(245, 242, 243);
+            height: 75%;
+            width:29%;
+            margin-left: 10%;  
+            margin-top: 10vh;
+            border-radius:2cap;
+        }
+        .form_box:hover {
+            margin-left: 9%; 
+            height: 77%;
+            width:31%;
+            box-shadow: 0vh 0vh 4vh 1vh  rgb(243, 244, 246);
+        }
+        .icon{
+            margin-top: 8vh;
+        }
+        .f{
+            margin-top: 5vh;
+            margin-left: 10vh;
+        }
+        .s1{
+            margin-left: 17vh;
+        }
+        .s1:hover{
+            background-color: rgb(134, 134, 242);
+        }
+        </style>
+        <body>
+            <div class="background">
+                <div class="form_box">
+                    <center><img class ="icon" src="icon.jpg" height="75vh" width="75vh"></img></center>
+                    <form class="f">
+                    <label for="fname">Name:</label>&nbsp&nbsp &nbsp &nbsp&nbsp &nbsp &nbsp&nbsp &nbsp &nbsp
+                    <input type="text" id="Name" name="Name" required><br><br>
+                    <label for="email">Email Id:</label> &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp&nbsp
+                    <input type="text" id="email" name="email" required><br><br>
+                    <label for="Location">Location:</label> &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp&nbsp
+                    <input type="text" id="Location" name="Location"><br><br>
+                    <label for="email">Country:</label> &nbsp&nbsp &nbsp &nbsp&nbsp &nbsp &nbsp&nbsp
+                    <input type="text" id="Country" name="Country"><br><br>
+                    <label for="State">State:</label> &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp&nbsp
+                    <input type="text" id="State" name="State"><br><br>
+                    <label for="City">City:</label> &nbsp&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp&nbsp
+                    <input type="text" id="City" name="City"><br><br>
+                    <input class="s1" type="submit" value="Submit">
+                    </form>
+                </div>
+            </div>
+            <script>
+                function getAddressDetails(location) {
+                  var nominatimUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${location}`;
+                
+                  $.ajax({
+                    url: nominatimUrl,
+                    type: 'GET',
+                    success: function(data) {
+                      if (data.length > 0) {
+                        var address = data[0];
+                        $('#city').val(address.city);
+                        $('#state').val(address.state);
+                        $('#country').val(address.country);
+                      } else {
+                        console.error('No results found');
+                      }
+                    },
+                    error: function(xhr, status, error) {
+                      console.error('Error fetching location details:', error);
+                    }
+                  });
+                }
+                </script>
+                
+                </body>
+                </html>
+                
+        </body>
+    </head>
+</html>
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>User Information Form</title>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+
+<form id="userForm">
+  <label for="name">Name:</label><br>
+  <input type="text" id="name" name="name" required><br><br>
+  
+  <label for="email">Email:</label><br>
+  <input type="email" id="email" name="email" required><br><br>
+  
+  <label for="location">Location:</label><br>
+  <input type="text" id="location" name="location" oninput="getAddressDetails(this.value)" required><br><br>
+  
+  <label for="city">City:</label><br>
+  <input type="text" id="city" name="city" readonly><br><br>
+  
+  <label for="state">State:</label><br>
+  <input type="text" id="state" name="state" readonly><br><br>
+  
+  <label for="country">Country:</label><br>
+  <input type="text" id="country" name="country" readonly><br><br>
+  
+  <input type="submit" value="Submit">
+</form>
+
+<script>
+function getAddressDetails(location) {
+  var nominatimUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${location}`;
+
+  $.ajax({
+    url: nominatimUrl,
+    type: 'GET',
+    success: function(data) {
+      if (data.length > 0) {
+        var address = data[0];
+        $('#city').val(address.city);
+        $('#state').val(address.state);
+        $('#country').val(address.country);
+      } else {
+        console.error('No results found');
+      }
+    },
+    error: function(xhr, status, error) {
+      console.error('Error fetching location details:', error);
+    }
+  });
+}
+</script>
+
+</body>
+</html>
