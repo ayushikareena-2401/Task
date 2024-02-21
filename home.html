@@ -1,7 +1,7 @@
 <html>
     <head>
         <title>Location File.</title>
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="j.js"></script>
         <style>
         body {
          background-image: url("locImage.jpg");
@@ -59,29 +59,6 @@
                     </form>
                 </div>
             </div>
-            <script>
-                function getAddressDetails(location) {
-                  var nominatimUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${location}`;
-                
-                  $.ajax({
-                    url: nominatimUrl,
-                    type: 'GET',
-                    success: function(data) {
-                      if (data.length > 0) {
-                        var address = data[0];
-                        $('#city').val(address.city);
-                        $('#state').val(address.state);
-                        $('#country').val(address.country);
-                      } else {
-                        console.error('No results found');
-                      }
-                    },
-                    error: function(xhr, status, error) {
-                      console.error('Error fetching location details:', error);
-                    }
-                  });
-                }
-                </script>
                 
                 </body>
                 </html>
@@ -98,61 +75,3 @@
 
 
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>User Information Form</title>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-</head>
-<body>
-
-<form id="userForm">
-  <label for="name">Name:</label><br>
-  <input type="text" id="name" name="name" required><br><br>
-  
-  <label for="email">Email:</label><br>
-  <input type="email" id="email" name="email" required><br><br>
-  
-  <label for="location">Location:</label><br>
-  <input type="text" id="location" name="location" oninput="getAddressDetails(this.value)" required><br><br>
-  
-  <label for="city">City:</label><br>
-  <input type="text" id="city" name="city" readonly><br><br>
-  
-  <label for="state">State:</label><br>
-  <input type="text" id="state" name="state" readonly><br><br>
-  
-  <label for="country">Country:</label><br>
-  <input type="text" id="country" name="country" readonly><br><br>
-  
-  <input type="submit" value="Submit">
-</form>
-
-<script>
-function getAddressDetails(location) {
-  var nominatimUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${location}`;
-
-  $.ajax({
-    url: nominatimUrl,
-    type: 'GET',
-    success: function(data) {
-      if (data.length > 0) {
-        var address = data[0];
-        $('#city').val(address.city);
-        $('#state').val(address.state);
-        $('#country').val(address.country);
-      } else {
-        console.error('No results found');
-      }
-    },
-    error: function(xhr, status, error) {
-      console.error('Error fetching location details:', error);
-    }
-  });
-}
-</script>
-
-</body>
-</html>
